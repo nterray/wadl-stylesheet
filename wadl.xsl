@@ -196,23 +196,22 @@
 
         <h5>Methods</h5>
 
-        <div class="methods">
+        <section class="methods">
             <xsl:for-each select="wadl:method">
             <xsl:variable name="name" select="@name"/>
-            <div class="method method-{$name}">
-                <table class="methodNameTable">
-                    <tr>
-                        <td class="methodNameTd">
-                            <xsl:variable name="id2"><xsl:call-template name="getId"/></xsl:variable>
-                            <a name="{$id2}"><xsl:value-of select="$name"/></a>
-                        </td>
-                        <td class="methodNameTd" style="text-align: right">
-                            <xsl:if test="@id">
-                                <xsl:value-of select="@id"/>() 
-                            </xsl:if>
-                        </td>
-                    </tr>
-                </table>
+            <xsl:variable name="id2"><xsl:call-template name="getId"/></xsl:variable>
+            <article class="method {$name}">
+                <a href="{$id2}">
+                    <h2>
+                        <code>
+                            <b><xsl:value-of select="$name"/></b>
+                        </code>
+                        <xsl:if test="@id">
+                            <xsl:value-of select="@id"/>
+                        </xsl:if>
+                    </h2>
+                </a>
+                <section>
                 <p>
                     <xsl:call-template name="getDoc">
                         <xsl:with-param name="base" select="$resourceBase"/>
@@ -317,10 +316,10 @@
                     </xsl:otherwise>
                 </xsl:choose>                
                 </div>  <!-- left indent for responses -->
-
-            </div>  <!-- class=method -->
+                </section>
+            </article>
             </xsl:for-each> <!-- wadl:method  -->
-        </div> <!-- class=methods -->
+        </section> <!-- class=methods -->
 
     </xsl:if>   <!-- wadl:method -->
 
@@ -567,18 +566,6 @@
             font-weight: bold;
             background-color: #eef;
         }
-        .method-GET .methodNameTd {
-            background-color: #119BDF;
-        }
-        .method-POST .methodNameTd {
-            background-color: #52CE0E;
-        }
-        .method-DELETE .methodNameTd {
-            background-color: #E02A10;
-        }
-        .method-PUT .methodNameTd {
-            background-color: #e08f10;
-        }
         h1 {
             font-size: 2m;
             margin-bottom: 0em;
@@ -650,6 +637,65 @@
         }
         td.summarySeparator {
             padding: 1px;
+        }
+        .method > a {
+            background: none repeat scroll 0 0 #333333;
+            border-radius: 2px 2px 2px 2px;
+            cursor: pointer;
+            display: block;
+            padding: 15px;
+        }
+        .method > a:hover {
+            background: none repeat scroll 0 0 #222222;
+            text-decoration: none;
+        }
+        .methods a h2 {
+            color: #FFFFFF;
+            font-size: 18px;
+            font-weight: normal;
+            margin: 0;
+        }
+        .methods a h2 code {
+            float: right;
+            font-size: 14px;
+        }
+        .methods a h2 code {
+            color: #657E8B;
+        }
+        .methods a h2 code b {
+            border-radius: 2px 2px 2px 2px;
+            color: #FFFFFF;
+            font-weight: normal;
+            padding: 3px 6px;
+        }
+
+        .method a h2 code b {
+            background: none repeat scroll 0 0 #657E8B;
+            text-transform: uppercase;
+        }
+        .method.GET a h2 code {
+            color: #119BDF;
+        }
+        .method.GET a h2 code b {
+            background: none repeat scroll 0 0 #119BDF;
+        }
+        .method.POST a h2 code {
+            color: #52CE0E;
+        }
+        .method.POST a h2 code b {
+            background: none repeat scroll 0 0 #52CE0E;
+        }
+        .method.PUT a h2 code {
+            color: #E08F10;
+        }
+        .method.PUT a h2 code b {
+            background: none repeat scroll 0 0 #E08F10;
+        }
+        .method.DELETE a h2 code {
+            color: #E02A10;
+        }
+        .method.DELETE a h2 code b {
+            background: none repeat scroll 0 0 #E02A10;
         }
     </style>
 </xsl:template>
